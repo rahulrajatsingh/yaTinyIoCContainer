@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "yaTinyIoCContainer", "yaTinyIoCContainer\yaTinyIoCContainer.csproj", "{7A8B14D2-FC61-44CB-861E-5F338A9B3500}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iocTest", "iocTest\iocTest.csproj", "{DE53B8F1-F128-4BFC-B05B-ECF7CEE97BDE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A8B14D2-FC61-44CB-861E-5F338A9B3500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A8B14D2-FC61-44CB-861E-5F338A9B3500}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A8B14D2-FC61-44CB-861E-5F338A9B3500}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A8B14D2-FC61-44CB-861E-5F338A9B3500}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE53B8F1-F128-4BFC-B05B-ECF7CEE97BDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE53B8F1-F128-4BFC-B05B-ECF7CEE97BDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE53B8F1-F128-4BFC-B05B-ECF7CEE97BDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE53B8F1-F128-4BFC-B05B-ECF7CEE97BDE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
