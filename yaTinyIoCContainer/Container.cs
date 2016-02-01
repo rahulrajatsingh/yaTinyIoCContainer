@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using yaTinyIoCContainer.Attributes;
 using yaTinyIoCContainer.Core;
 using yaTinyIoCContainer.Models;
+using yaTinyIoCContainer.Services;
 
 namespace yaTinyIoCContainer
 {

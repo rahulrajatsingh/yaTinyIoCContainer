@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using yaTinyIoCContainer.Models;
 
-namespace yaTinyIoCContainer
+namespace yaTinyIoCContainer.Services
 {
     internal class InstanceCreationService
     {
