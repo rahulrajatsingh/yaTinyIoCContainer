@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\TinyDependencyAttribute.cs" />
     <Compile Include="Container.cs" />
     <Compile Include="Core\IContainer.cs" />
     <Compile Include="Models\RegistrationModel.cs" />

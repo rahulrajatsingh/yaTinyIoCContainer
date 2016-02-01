@@ -11,8 +11,7 @@ namespace yaTinyIoCContainer
     {
         static SingletonCreationService instance = null;
         static Dictionary<string, object> objectPool = new Dictionary<string, object>();
-        static Container m_Registry = null;
-
+        
         static SingletonCreationService()
         {
             instance = new SingletonCreationService();
@@ -21,13 +20,12 @@ namespace yaTinyIoCContainer
         private SingletonCreationService()
         { }
 
-        public static SingletonCreationService GetInstance(Container container)
-        {
-            m_Registry = container;
+        public static SingletonCreationService GetInstance()
+        {   
             return instance;
         }
 
-        public object GetSingleton(Type t)
+        public object GetSingleton(Type t, object[] arguments = null)
         {
             object obj = null;
 
@@ -35,7 +33,7 @@ namespace yaTinyIoCContainer
             {
                 if (objectPool.ContainsKey(t.Name) == false)
                 {
-                    obj = InstanceCreationService.GetInstance(m_Registry).GetNewObject(t);
+                    obj = InstanceCreationService.GetInstance().GetNewObject(t, arguments);
                     objectPool.Add(t.Name, obj);
                 }
                 else

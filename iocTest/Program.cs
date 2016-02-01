@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using yaTinyIoCContainer.Attributes;
 using yaTinyIoCContainer.Core;
 
 namespace iocTest
@@ -33,7 +34,6 @@ namespace iocTest
         }
     }
 
-
     interface One
     {
         void FunctionOne();
@@ -47,6 +47,8 @@ namespace iocTest
     class ClassOne : One
     {
         ITest1 m_Itest1 = null;
+
+        [TinyDependency]
         public ClassOne(ITest1 test1)
         {
             m_Itest1 = test1;
@@ -64,7 +66,8 @@ namespace iocTest
     {
         One m_One = null;
         ITest1 m_Itest1 = null;
-        
+
+        [TinyDependency]
         public ClassTwo(ITest1 test1, One one)
         {
             m_Itest1 = test1;
@@ -91,14 +94,8 @@ namespace iocTest
             container.RegisterInstanceType<ITest1, ClassTest1>();
 
             ITest1 obj1 = container.Resolve<ITest1>();
-            ITest1 obj2 = container.Resolve<ITest1>();
-            ITest1 obj3 = container.Resolve<ITest1>();
-            ITest1 obj4 = container.Resolve<ITest1>();
 
             obj1.Print();
-            obj2.Print();
-            obj3.Print();
-            obj4.Print();
 
             // testing singleton registration for class
             Console.WriteLine();
@@ -106,14 +103,8 @@ namespace iocTest
             container.RegisterSingletonType<ITest2, ClassTest2>();
 
             ITest2 obj5 = container.Resolve<ITest2>();
-            ITest2 obj6 = container.Resolve<ITest2>();
-            ITest2 obj7 = container.Resolve<ITest2>();
-            ITest2 obj8 = container.Resolve<ITest2>();
 
             obj5.Print();
-            obj6.Print();
-            obj7.Print();
-            obj8.Print();
 
             // testing nested dependency for 2 levels
             Console.WriteLine();

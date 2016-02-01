@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using yaTinyIoCContainer.Attributes;
 using yaTinyIoCContainer.Core;
 using yaTinyIoCContainer.Models;
 
@@ -48,7 +50,7 @@ namespace yaTinyIoCContainer
             return (I)Resolve(typeof(I));            
         }
 
-        internal object Resolve(Type t)
+        private object Resolve(Type t)
         {
             object obj = null;
 
@@ -59,22 +61,59 @@ namespace yaTinyIoCContainer
                 if (model != null)
                 {
                     Type typeToCreate = model.ObjectType;
-                    object returnedObj = null;
 
-                    if (model.RegType == REG_TYPE.INSTANCE)
-                    {
-                        returnedObj = InstanceCreationService.GetInstance(this).GetNewObject(typeToCreate);
-                    }
-                    else if (model.RegType == REG_TYPE.SINGLETON)
-                    {
-                        returnedObj = SingletonCreationService.GetInstance(this).GetSingleton(typeToCreate);
-                    }
+                    ConstructorInfo[] consInfo = typeToCreate.GetConstructors();
 
-                    obj = returnedObj;
+                    var dependentCtor = consInfo.FirstOrDefault(item => item.CustomAttributes.FirstOrDefault(att => att.AttributeType == typeof(TinyDependencyAttribute)) != null);
+
+                    if(dependentCtor == null)
+                    {
+                        // use the default constructor to create
+                        obj = CreateInstance(model);
+                    }
+                    else
+                    {
+                        // We found a constructor with dependency attribute
+                        ParameterInfo[] parameters = dependentCtor.GetParameters();
+                        if (parameters.Count() == 0)
+                        {
+                            // Futile dependency attribute, use the default constructor only
+                            obj = CreateInstance(model);
+                        }
+                        else
+                        {
+                            // valid dependency attribute, lets create the dependencies first and pass them in constructor
+                            List<object> arguments = new List<object>();
+                            foreach (var param in parameters)
+                            {
+                                Type type = param.ParameterType;
+                                arguments.Add(this.Resolve(type));
+                            }
+
+                            obj = CreateInstance(model, arguments.ToArray());
+                        }
+                    }
                 }
             }
 
             return obj;
+        }
+
+        private object CreateInstance(RegistrationModel model, object[] arguments = null)
+        {
+            object returnedObj = null;
+            Type typeToCreate = model.ObjectType;
+
+            if (model.RegType == REG_TYPE.INSTANCE)
+            {
+                returnedObj = InstanceCreationService.GetInstance().GetNewObject(typeToCreate, arguments);
+            }
+            else if (model.RegType == REG_TYPE.SINGLETON)
+            {
+                returnedObj = SingletonCreationService.GetInstance().GetSingleton(typeToCreate, arguments);
+            }
+
+            return returnedObj;
         }
     }
 }
